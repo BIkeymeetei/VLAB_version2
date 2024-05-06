@@ -1,0 +1,8 @@
+streamlit 
+mysql.connector
+pandas 
+paramiko
+docker
+datetime
+mysql-connector-python
+

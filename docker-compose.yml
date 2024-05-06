@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    image: sreedocker123/virtuallabs_admin:v1
+    container_name: admin    
+    ports:
+      - "8501:8501"  # Change port if necessary
+    depends_on:
+      - mysql
+        #volumes:
+        #- admin_data:/path/to/admin_service/data
+
+  faculty:
+    build:
+      context: ./faculty
+      dockerfile: Dockerfile
+    image: sreedocker123/virtuallabs_faculty:v1
+    container_name: faculty    
+    ports:
+      - "8502:8501"  # Change port if necessary
+    depends_on:
+      - mysql
+        #volumes:
+        #- faculty_data:/path/to/faculty_service/data
+
+  student:
+    build:
+      context: ./student
+      dockerfile: Dockerfile
+    image: sreedocker123/virtuallabs_student:v1
+    container_name: student   
+    ports:
+      - "8503:8501"  # Change port if necessary
+    depends_on:
+      - mysql
+        #volumes:
+        #- student_data:/path/to/student_service/data
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: Lifegood@7776 
+      MYSQL_DATABASE: admin
+      MYSQL_USER: Bikey
+      MYSQL_PASSWORD: Lifegood@7776 
+    ports:
+      - "3307:3306"  # Change port if necessary
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+
+volumes:
+  #admin_data:
+  #faculty_data:
+  #student_data:
+  mysql_data:
+
